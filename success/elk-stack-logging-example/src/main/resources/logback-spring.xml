@@ -1,0 +1,33 @@
+<configuration>
+    <appender name="standard_output_to_console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>
+                %d{dd-MM-yyyy HH:mm:ss.SSS}([%thread]) %-5level %logger{36} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <appender name="json_console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
+    </appender>
+
+        <root level="info">
+            <appender-ref ref="json_console"/>
+        </root>
+    <root level="debug">
+        <appender-ref ref="json_console"/>
+    </root>
+
+
+    <springProfile name="production">
+        <root level="info">
+            <appender-ref ref="standard_output_to_console"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="staging">
+        <root level="info">
+            <appender-ref ref="standard_output_to_console"/>
+        </root>
+    </springProfile>
+</configuration>
